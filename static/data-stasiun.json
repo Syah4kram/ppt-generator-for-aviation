@@ -1,0 +1,33 @@
+{
+    "stasiun": [
+    {"nama": "Stasiun Meteorologi Sultan Iskandar Muda (WITT)", "code": "witt", "img": "Stasiun Meteorologi Sultan Iskandar Muda.jpeg"},
+    {"nama": "Stasiun Meteorologi Kualanamu (WIMM)", "code": "wimm", "img": "Stasiun Meteorologi Kualanamu.jpg"},
+    {"nama": "Stasiun Meteorologi Minangkabau Padang (WIEE)", "code": "wiee", "img": "Stasiun Meteorologi Minangkabau.JPG"},
+    {"nama": "Stasiun Meteorologi Fatmawati-Soekarno Bengkulu (WIGG)", "code": "wigg", "img": "Stasiun Meteorologi Fatmawati-Soekarno Bengkulu.jpeg"},
+    {"nama": "Stasiun Meteorologi Depati Amir Pangkal Pinang (WIKK)", "code": "wikk", "img": "Stasiun Meteorologi Depati Amir.jpeg"},
+    {"nama": "Stasiun Meteorologi Natuna Ranai (WIDO)", "code": "wido", "img": "Stasiun Meteorologi Ranai Natuna.jpg"},
+    {"nama": "Stasiun Meteorologi Soekarno-Hatta Tangerang (WIII)", "code": "wiii", "img": "Stasiun Meteorologi Soekarno-hatta.jpeg"},
+    {"nama": "Stasiun Meteorologi Tunggul Wulung Cilacap (WAHL)", "code": "wahl", "img": "Stasiun Meteorologi Tunggul Wulung.jpg"},
+    {"nama": "Stasiun Meteorologi Juanda Sidoarjo (WARR)", "code": "warr", "img": "Stasiun Meteorologi Juanda.jpg"},
+    {"nama": "Stasiun Meteorologi I Gusti Ngurah Rai Badung", "code": "badung", "img": "Stasiun Meteorologi I Gusti Ngurah Rai.jpg"},
+    {"nama": "Stasiun Meteorologi Supadio Pontianak (WIOO)", "code": "wioo", "img": "Stasiun Meteorologi Supadio.jpg"},
+    {"nama": "Stasiun Meteorologi Iskandar Kotawaringin Barat (WAGI)", "code": "wagi", "img": "stasiun.jpg"},
+    {"nama": "Stasiun Meteorologi Syamsudin Noor Banjarmasin", "code": "banjarmasin", "img": "Stasiun Meteorologi Banjarmasin.jpg"},
+    {"nama": "Stasiun Meteorologi Juwata Tarakan", "code": "tarakan", "img": "Stasiun Meteorologi Juwata Tarakan.jpg"},
+    {"nama": "Stasiun Meteorologi Sams Balikpapan (WALL)", "code": "wall", "img": "Stasiun Meteorologi SAMS Balikpapan.JPG"},
+    {"nama": "Stasiun Meteorologi Sultan Hasanuddin Maros (WAAA)", "code": "waaa", "img": "Stasiun Meteorologi Hasanuddin.jpeg"},
+    {"nama": "Stasiun Meteorologi Mutiara Sis Al-Jufri Palu", "code": "palu", "img": "Stasiun Meteorologi Mutiara Sis Palu.jpeg"},
+    {"nama": "Stasiun Meteorologi Sam Ratulangi Manado (WAMM)", "code": "wamm", "img": "Stasiun Meteorologi Sam Ratulangi Manado.jpg"},
+    {"nama": "Stasiun Meteorologi Pattimura Ambon", "code": "ambon", "img": "Stasiun Meterologi Pattimura Klas II Ambon.jpeg"},
+    {"nama": "Stasiun Meteorologi Eltari Kupang", "code": "kupang", "img": "Stasiun Meterologi Pattimura Klas II El Tari Kupang.jpg"},
+    {"nama": "Stasiun Meteorologi Mathilda Batlayari Maluku Tenggara Barat (WAPS)", "code": "waps", "img": "Stasiun Meteorologi Mathilda Batlayeri.jpg"},
+    {"nama": "Stasiun Meteorologi Deo Sorong (WASS)", "code": "wass", "img": "Stasiun Meteorologi DEO Sorong.jpg"},
+    {"nama": "Stasiun Meteorologi Frans Kaisepo Biak", "code": "biak", "img": "Stasiun Meteorologi Frans Kaiseipo Biak.jpeg"},
+    {"nama": "Stasiun Meteorologi Sentani Jayapura", "code": "jayapura", "img": "Stasiun Meteorologi Sentani Jayapura.jpeg"},
+    {"nama": "Stasiun Meteorologi Mopah Merauke", "code": "merauke", "img": "Stasiun Meteorologi Mopah.webp"},
+    {"nama": "Stasiun Meteorologi Sultan Baabulah Ternate", "code": "ternate", "img": "Stasiun Meteorologi Baabullah Ternate.jpg"},
+    {"nama": "Stasiun Meteorologi Sultan Syarif Kasim II Pekanbaru", "code": "pekanbaru", "img": "Stasiun Meteorologi Syarif Kasim Pekanbaru.jpg"},
+    {"nama": "Stasiun Meteorologi Fransiskus Xaverius Seda Sikka", "code": "sikka", "img": "Stasiun Meteorologi Fransiskus Xaverius.jpg"},
+    {"nama": "Stasiun Meteorologi Wamena Jayawijaya", "code": "jayawijaya", "img": "Stasiun Meteorologi Wamena.jpg"}
+    ]
+}

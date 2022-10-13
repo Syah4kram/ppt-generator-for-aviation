@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <title>Web Analisis Data Udara Atas</title>
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container-fluid text-center bg-primary">
+        <div class="row">
+            <div class="col-lg-3">
+                <img src="https://cdn.bmkg.go.id/Web/Logo-BMKG-new.png" alt="Logo BMKG" width="90vw">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="text-white">PUSAT METEOROLOGI PENERBANGAN</h1>
+                <h3 class="text-white">ANALISIS DATA UDARA ATAS</h3>
+                <div class="tanggal text-white">Oktober 2022</div>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+    <div class="container-fluid text-center">
+        <div id="list-stasiun" class="row"></div>
+        <div id="list-form"></div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        
+var stasiun = ""
+fungsi = ""
+
+$(document).ready(function () {
+    $.getJSON('data-stasiun.json', function (data) {
+        for (var i = 0; i < data.stasiun.length; i++) {
+            stasiun += `
+            <div class="col-lg-2 col-md-4 col-sm-2 open-button-${data.stasiun[i].code}" onclick="openForm${data.stasiun[i].code}()">
+            <div class="card spacer">
+                <img src="imgs/${data.stasiun[i].img}" alt="" class="card-img-top cropped">
+                <div class="card-body nama-stasiun bg-info">${data.stasiun[i].nama}</div>
+            </div>
+        </div>`
+        }
+        stasiun += `
+        <a href='{{url_for('generateppt')}}'>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    Generate PPT
+                </div>
+            </div>
+        </div>
+        </a>
+        `
+        document.getElementById("list-stasiun").innerHTML = stasiun
+    
+        for (var i = 0; i < data.stasiun.length; i++) {
+            fungsi += `
+            <div class="form-${data.stasiun[i].code}">
+                <div class="form-popup bg-light" id="form${data.stasiun[i].code}">
+                    <form action="{{url_for('adddata')}}" class="form-container" method="post" enctype="multipart/form-data">
+                        <div class="container">
+                            <h3>Data ${data.stasiun[i].nama}</h3>
+
+                            <label for="file">Gambar</label>
+                            <input type="file" name="file">
+                            <br>
+    
+                            <input type="text" id="date" name="date" value="Oktober 2022" class="form-control" hidden>
+                            <input type="text" name="station" value="${data.stasiun[i].code}" class="form-control" hidden>
+
+                            <label for="cape">Nilai Cape (J/Kg)</label>
+                            <input type="text" placeholder="Cape (J/Kg)" name="cape" required class="form-control">
+    
+                            <label for="si">Nilai SI</label>
+                            <input type="text" placeholder="nilai SI" name="si" required class="form-control">
+    
+                            <label for="li">Nilai LI</label>
+                            <input type="text" placeholder="nilai LI" name="li" required class="form-control">
+    
+                            <label for="ki">Nilai KI</label>
+                            <input type="text" placeholder="nilai KI" name="ki" required class="form-control">
+    
+                            <label for="potensi-pertumbuhan-awan">Potensi Pertumbuhan Awan</label>
+                            <input type="text" placeholder="LFC (ft)" name="potensi-pertumbuhan-awan" required
+                                class="form-control">
+    
+                            <p>Lightning</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="lightning" id="lightning-ya">
+                                <label class="form-check-label" for="lightning-ya">Ya</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="lightning" id="lightning-tidak" checked>
+                                <label class="form-check-label" for="lightning-tidak">Tidak</label>
+                            </div>
+    
+                            <p>Hujan</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hujan" id="lightning-ya">
+                                <label class="form-check-label" for="hujan-ya">Ya</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hujan" id="lightning-tidak" checked>
+                                <label class="form-check-label" for="hujan-tidak">Tidak</label>
+                            </div>
+    
+                            <i>Microburst</i>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="microburst" id="lightning-ya">
+                                <label class="form-check-label" for="microburst-ya">Ya</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="microburst" id="lightning-tidak" checked>
+                                <label class="form-check-label" for="microburst-tidak">Tidak</label>
+                            </div>
+    
+                            <label for="uap-air">Kanduang Uap Air</label>
+                            <input type="text" placeholder="uap air (mm)" name="uap-air" required class="form-control">
+    
+                            <p>Arah dan Kecepatan Angin</p>
+                            <b>0-5000 feet</b>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="col">arah</p>
+                                    <input type="text" placeholder="dari" name="satu-dari" required class="form-control col">
+                                    <input type="text" placeholder="hingga" name="satu-hingga" required class="form-control col">
+                                    <p class="col">kecepatan</p>
+                                    <input type="text" placeholder="knots" name="satu-knots" required class="form-control col">
+                                </div>
+                            </div>
+                            <b>5000-9000 feet</b>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="col">arah</p>
+                                    <input type="text" placeholder="dari" name="dua-dari" required class="form-control col">
+                                    <input type="text" placeholder="hingga" name="dua-hingga" required class="form-control col">
+                                    <p class="col">kecepatan</p>
+                                    <input type="text" placeholder="knots" name="dua-knots" required class="form-control col">
+                                </div>
+                            </div>
+                            <b>9000-23000 feet</b>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="col">arah</p>
+                                    <input type="text" placeholder="dari" name="tiga-dari" required class="form-control col">
+                                    <input type="text" placeholder="hingga" name="tiga-hingga" required class="form-control col">
+                                    <p class="col">kecepatan</p>
+                                    <input type="text" placeholder="knots" name="tiga-knots" required class="form-control col">
+                                </div>
+                            </div>
+                            <b>23000-39000 feet</b>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="col">arah</p>
+                                    <input type="text" placeholder="dari" name="empat-dari" required class="form-control col">
+                                    <input type="text" placeholder="hingga" name="empat-hingga" required class="form-control col">
+                                    <p class="col">kecepatan</p>
+                                    <input type="text" placeholder="knots" name="empat-knots" required class="form-control col">
+                                </div>
+                            </div>
+                            <b>39000-55000 feet</b>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <p class="col">arah</p>
+                                    <input type="text" placeholder="dari" name="lima-dari" required class="form-control col">
+                                    <input type="text" placeholder="hingga" name="lima-hingga" required class="form-control col">
+                                    <p class="col">kecepatan</p>
+                                    <input type="text" placeholder="knots" name="lima-knots" required class="form-control col">
+                                </div>
+                            </div>
+                            <br>
+    
+                            <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+                            <button type="button" class="btn btn-danger" onclick="closeForm${data.stasiun[i].code}()">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>`
+        }
+        document.getElementById("list-form").innerHTML = fungsi
+    })
+})
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+.form-popup {
+    display: none;
+    position: fixed;
+    overflow: scroll;
+    border: 3px solid #f1f1f1;
+    text-align: left;
+    bottom: 2vh;
+    left: 20vw;
+    z-index: 9;
+    height: 85vh;
+    width: 60vw;
+}
+
+.nama-stasiun {
+    min-height: 2000;
+}
+
+.cropped {
+    height: 200px;
+}
+
+.spacer{
+    margin: 10px auto;
+}
