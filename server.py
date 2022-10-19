@@ -10,6 +10,11 @@ from waitress import serve
 app = Flask(__name__, static_url_path="", static_folder='static')
 DATABASE = 'database.db'
 UPLOAD_FOLDER = 'static/uploads/'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -47,18 +52,19 @@ def adddata():
         limahingga = request.form['lima-hingga']
         limaknots = request.form['lima-knots']
 
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(UPLOAD_FOLDER, filename))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
 
-        with sqlite3.connect("database.db") as con:
-            cur = con.cursor()
-            cur.execute(
-                "INSERT INTO data (date, station, image, cape, si, li, ki, potensiPertumbuhanAwan, lightning, hujan, microburst, uap, satudari, satuhingga, satuknots, duadari, duahingga, duaknots, tigadari, tigahingga, tigaknots, empatdari, empathingga, empatknots, limadari, limahingga, limaknots)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (date, station, filename, cape, si, li, ki, potensiPertumbuhanAwan, lightning, hujan, microburst, uap, satudari, satuhingga, satuknots, duadari, duahingga, duaknots, tigadari, tigahingga, tigaknots, empatdari, empathingga, empatknots, limadari, limahingga, limaknots))
+            with sqlite3.connect("database.db") as con:
+                cur = con.cursor()
+                cur.execute(
+                    "INSERT INTO data (date, station, image, cape, si, li, ki, potensiPertumbuhanAwan, lightning, hujan, microburst, uap, satudari, satuhingga, satuknots, duadari, duahingga, duaknots, tigadari, tigahingga, tigaknots, empatdari, empathingga, empatknots, limadari, limahingga, limaknots)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (date, station, filename, cape, si, li, ki, potensiPertumbuhanAwan, lightning, hujan, microburst, uap, satudari, satuhingga, satuknots, duadari, duahingga, duaknots, tigadari, tigahingga, tigaknots, empatdari, empathingga, empatknots, limadari, limahingga, limaknots))
 
-            con.commit()
-            msg = "Record successfully added"
-        con.close()
-        return render_template("result.html", msg=msg)
+                con.commit()
+                msg = "Record successfully added"
+            con.close()
+            return render_template("result.html", msg=msg)
 
     elif request.method=='GET':
         return render_template('index.html')
@@ -120,14 +126,14 @@ def generateppt():
 
     def thunderstorm(si, ki):
         if ki < 15:
-            ts = "Tidak ada TS"
+            ts = "Tidak ada potensi TS"
         elif si < 0 and 15 <= ki <= 25:
-            ts = "TS lemah"
+            ts = "Potensi TS lemah"
         elif -3 <= si <= 0 and 26 <= ki <= 25:
-            ts = "TS sedang"
+            ts = "Potensi TS sedang"
         elif -6 <= si <= -3 and 31 <= ki <= 40:
             ts = "TS kuat"
-        else: ts = "TS Sangat Kuat"
+        else: ts = "Potensi TS Sangat Kuat"
         return ts
 
     def judulSlide():
@@ -166,7 +172,7 @@ def generateppt():
 
         slide_content_title = "{} \n TANGGAL {} JAM 00 UTC".format(station, date)
         content_kecepatan = '''Arah dan Kecepatan Angin \n  0-5000 ft : dari {} hingga {} : {} knots \n  5000-9000 ft : dari {} hingga {} : {} knots \n  9000-23000 ft : dari {} hingga {} : {} knots \n  23000-39000 ft : dari {} hingga {} : {} knots \n  39000-55000 ft : dari {} hingga {} : {} knots'''.format(angin_satu_dari, angin_satu_ke , angin_satu_knot , angin_dua_dari, angin_dua_ke, angin_dua_knot, angin_tiga_dari, angin_tiga_ke, angin_tiga_knot , angin_empat_dari , angin_empat_ke , angin_empat_knot, angin_lima_dari , angin_lima_ke , angin_lima_knot)
-        slide_content = '''Potensi Thunderstorm: {} \n Terdapat potensi awan pada ketinggian {} ft \n  Lightning: {} \n  Hujan: {}  \n Microburst: {} \n Kondisi udara {} \n Kondisi uap air: {} mm '''.format(thunderstorm(si, ki), awan, light, rain, microburst, kondisi_udara(cape, li), uap)
+        slide_content = '''Potensi Thunderstorm: {} \n Terdapat potensi awan pada ketinggian {} ft \n Potensi Lightning: {} \n  Potensi Hujan: {}  \n Potensi Microburst: {} \n Kondisi udara {} \n Kondisi uap air: {} mm '''.format(thunderstorm(si, ki), awan, light, rain, microburst, kondisi_udara(cape, li), uap)
 
         slide_layout2 = prs.slide_layouts[SLD_TITLE_AND_CONTENT]
         slide2 = prs.slides.add_slide(slide_layout2)
